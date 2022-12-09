@@ -22,26 +22,10 @@ class MyApp extends StatelessWidget {
             elevation: 0,
             iconTheme: IconThemeData(color: Colors.black),
           )),
+      // here we are using the generateRoute function from the router.dart file
+      // also we are passing the settings object to the generateRoute function
       onGenerateRoute: ((settings) => generateRoute(settings)),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Amazon Clone'),
-        ),
-        body: Column(
-          children: [
-            const Center(
-              child: Text('Flutter Demo Home Page'),
-            ),
-            Builder(builder: (context) {
-              return ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, AuthScreen.routeName);
-                  },
-                  child: Text('Hello!!'));
-            })
-          ],
-        ),
-      ),
+      home: AuthScreen(),
     );
   }
 }
