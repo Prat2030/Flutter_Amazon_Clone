@@ -23,7 +23,7 @@ mongoose.connect(DB).then(()=>{
 
 // CRUD -> Create, Read, Update, Delete -> POST, GET, PUT, DELETE
 
-app.listen(3000,()=>{
+app.listen(PORT,"0.0.0.0",()=>{
     // console.log("Server is running on port"+PORT); // old way of doing it
     console.log(`Server is running on port ${PORT}`); // new way of doing it
 }); // listening to port 3000, if we do not specify the second argument, it will listen to localhost only
