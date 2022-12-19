@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone/common/widgets/custom_button.dart';
 import 'package:flutter_amazon_clone/common/widgets/custom_textfield.dart';
 import 'package:flutter_amazon_clone/constants/global_variables.dart';
+import 'package:flutter_amazon_clone/features/auth/services/auth_service.dart';
 
 enum AuthMode { login, signup }
 
@@ -21,6 +22,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
   final TextEditingController _namecontroller = TextEditingController();
+  final AuthService authService = AuthService();
 
   @override
   void dispose() {
@@ -29,6 +31,17 @@ class _AuthScreenState extends State<AuthScreen> {
     _emailcontroller.dispose();
     _passwordcontroller.dispose();
     _namecontroller.dispose();
+  }
+
+  void signUpUser() {
+    if (_signupFormKey.currentState!.validate()) {
+      authService.signUpUser(
+        context: context,
+        name: _namecontroller.text,
+        email: _emailcontroller.text,
+        password: _passwordcontroller.text,
+      );
+    }
   }
 
   @override
