@@ -11,6 +11,7 @@ const app = express(); // initializing express and saving it in a variable
 const DB = "mongodb+srv://pratyush:J8k4iUMDYY9icofZ@cluster0.dmvu6di.mongodb.net/?retryWrites=true&w=majority";
 
 // Middleware
+app.use(express.json()); // using express.json() as middleware
 app.use(authRouter); // using the authRouter as middleware
 
 // Connecting to database
