@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -31,7 +33,12 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
       ),
-      validator: (val) {},
+      validator: (val) {
+        if (val!.isEmpty || val == null) {
+          return 'Please enter a valid $hintText';
+        }
+        return null;
+      },
     );
   }
 }
