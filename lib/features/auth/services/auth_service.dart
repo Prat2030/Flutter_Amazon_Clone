@@ -3,10 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone/constants/error_handling.dart';
 import 'package:flutter_amazon_clone/constants/utils.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants/global_variables.dart';
 import '../../../models/user.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../providers/user_provider.dart';
 
 class AuthService {
   // SignUp
@@ -62,7 +66,18 @@ class AuthService {
         },
       );
       print(response.body);
-      HttpErrorHandle(response: response, context: context, onSuccess: () {});
+      HttpErrorHandle(
+          response: response,
+          context: context,
+          onSuccess: () async {
+            SharedPreferences prefs = await SharedPreferences
+                .getInstance(); // collecting the token value
+            Provider.of<UserProvider>(context, listen: false).setUser(response.body);
+            await prefs.setString(
+                'x-auth-token',
+                jsonDecode(response.body)[
+                    'token']); // saving the token value as a globalvariable
+          });
     } catch (er) {
       showSnackBar(context, er.toString());
     }
