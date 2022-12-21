@@ -9,7 +9,7 @@ enum AuthMode { login, signup }
 class AuthScreen extends StatefulWidget {
   // here we are defining the route name for the AuthScreen
   static const String routeName = '/auth-screen';
-  AuthScreen({Key? key}) : super(key: key);
+  const AuthScreen({Key? key}) : super(key: key);
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();

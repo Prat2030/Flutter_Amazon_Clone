@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_amazon_clone/constants/error_handling.dart';
 import 'package:flutter_amazon_clone/constants/utils.dart';
+import 'package:flutter_amazon_clone/features/home/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -72,11 +75,17 @@ class AuthService {
           onSuccess: () async {
             SharedPreferences prefs = await SharedPreferences
                 .getInstance(); // collecting the token value
-            Provider.of<UserProvider>(context, listen: false).setUser(response.body);
+            Provider.of<UserProvider>(context, listen: false)
+                .setUser(response.body);
             await prefs.setString(
                 'x-auth-token',
                 jsonDecode(response.body)[
                     'token']); // saving the token value as a globalvariable
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              HomeScreen.routeName,
+              (_) => false,
+            );
           });
     } catch (er) {
       showSnackBar(context, er.toString());
